@@ -8,15 +8,175 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #0f172a; color: white; }
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: white; overflow-x: hidden; }
         .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cursor { display: inline-block; width: 10px; background-color: #38bdf8; margin-left: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     </style>
 </head>
 <body>
     <div id="root"></div>
-    <script type="module" src="app.js"></script>
+
+    <script type="module">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = FramerMotion;
+
+        const App = () => {
+            const [isUnlocked, setIsUnlocked] = useState(false);
+            const [password, setPassword] = useState("");
+            const [displayText, setDisplayText] = useState("");
+            const fullText = "Welcome to my interactive resume. Please enter the password to view my professional journey... ❤️";
+
+            // Typing effect logic
+            useEffect(() => {
+                let i = 0;
+                const timer = setInterval(() => {
+                    setDisplayText(fullText.slice(0, i));
+                    i++;
+                    if (i > fullText.length) clearInterval(timer);
+                }, 50);
+                return () => clearInterval(timer);
+            }, []);
+
+            const handleUnlock = () => {
+                if (password === "1234") { // Your password here 
+                    // Trigger Confetti!
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#38bdf8', '#818cf8', '#ffffff']
+                    });
+                    setIsUnlocked(true);
+                } else {
+                    alert("Incorrect password. Hint: It's our special code! ❤️");
+                }
+            };
+
+            return (
+                <div className="min-h-screen">
+                    <AnimatePresence>
+                        {!isUnlocked ? (
+                            <motion.div 
+                                key="gate"
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                className="h-screen flex flex-col items-center justify-center p-6"
+                            >
+                                <div className="max-w-md w-full bg-slate-800/50 p-8 rounded-3xl border border-slate-700 backdrop-blur-sm">
+                                    <p className="text-sky-400 mb-6 min-h-[80px] text-lg leading-relaxed">
+                                        {displayText}<span className="cursor">&nbsp;</span>
+                                    </p>
+                                    <div className="space-y-4">
+                                        <input 
+                                            type="password" 
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="Enter Password"
+                                            className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-sky-500 outline-none text-center text-xl transition-all"
+                                        />
+                                        <motion.button 
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            onClick={handleUnlock}
+                                            className="w-full p-4 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-xl font-bold text-lg shadow-lg shadow-sky-500/20"
+                                        >
+                                            Unlock Resume
+                                        </motion.button>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ) : (
+                            <motion.div 
+                                key="content"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="p-4 md:p-8 max-w-6xl mx-auto"
+                            >
+                                {/* Hero Section */}
+                                <header className="text-center mb-16">
+                                    <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-4">Hammad Siddiqui</h1>
+                                    <p className="text-xl md:text-2xl text-slate-400 font-light">Lead Software Engineer | Full-Stack Specialist</p>
+                                    <div className="flex flex-wrap justify-center gap-6 mt-6 text-slate-500">
+                                        <span>📍 Chicago, IL [cite: 3]</span>
+                                        <span>📧 hammadgr8@gmail.com [cite: 4]</span>
+                                        <a href="https://github.com/hammadsiddiquii" className="text-sky-400 hover:underline">GitHub [cite: 5]</a>
+                                    </div>
+                                </header>
+
+                                {/* Main Grid */}
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                                    {/* Sidebar */}
+                                    <div className="space-y-12">
+                                        <section>
+                                            <h2 className="text-sky-400 font-bold tracking-widest text-sm mb-6 uppercase">Core Expertise [cite: 11]</h2>
+                                            <div className="flex flex-wrap gap-2 text-xs">
+                                                {['.NET 8', 'C#', 'Microservices', 'Azure', 'AWS', 'React', 'Angular', 'SQL Server'].map(skill => (
+                                                    <span key={skill} className="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-slate-300">{skill} [cite: 12, 13, 14, 15]</span>
+                                                ))}
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <h2 className="text-indigo-400 font-bold tracking-widest text-sm mb-6 uppercase">Certifications [cite: 17]</h2>
+                                            <ul className="space-y-4 text-sm text-slate-400">
+                                                <li className="border-l-2 border-indigo-500 pl-4">Azure Developer Associate (AZ-204) [cite: 18]</li>
+                                                <li className="border-l-2 border-indigo-500 pl-4">Azure AI Engineer Associate (AZ-102) [cite: 19]</li>
+                                                <li className="border-l-2 border-indigo-500 pl-4">Google Cloud AI Agents [cite: 20]</li>
+                                            </ul>
+                                        </section>
+                                    </div>
+
+                                    {/* Experience Timeline */}
+                                    <div className="lg:col-span-2 space-y-12">
+                                        <h2 className="text-2xl font-bold border-b border-slate-800 pb-4">Professional Experience [cite: 31]</h2>
+                                        <div className="space-y-12">
+                                            <ExperienceItem 
+                                                title="Lead .NET Developer" 
+                                                [cite_start]company="Columbus Technology Solutions [cite: 32]" 
+                                                date="Oct 2023 - Present"
+                                                points={[
+                                                    [cite_start]"Architected transition of legacy .NET monoliths to .NET 8 microservices [cite: 34]",
+                                                    [cite_start]"Leading cross-functional team of 8 developers [cite: 35]",
+                                                    [cite_start]"Designed event-driven architectures using Azure Service Bus and Kafka [cite: 36]"
+                                                ]}
+                                            />
+                                            <ExperienceItem 
+                                                title="Senior Software Engineer" 
+                                                [cite_start]company="Sky Systems Inc [cite: 39]" 
+                                                date="Oct 2022 - Oct 2023"
+                                                points={[
+                                                    [cite_start]"Architected school assignment systems using .NET 6 and Blazor [cite: 41]",
+                                                    [cite_start]"Developed secure donor portals using React and TypeScript [cite: 42]",
+                                                    [cite_start]"Engineered automated messaging via Twilio Flex APIs [cite: 43]"
+                                                ]}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            );
+        };
+
+        const ExperienceItem = ({ title, company, date, points }) => (
+            <div className="relative pl-8 border-l border-slate-800">
+                <div className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-sky-500 shadow-[0_0_10px_#0ea5e9]"></div>
+                <h3 className="text-xl font-bold text-slate-100">{title}</h3>
+                <p className="text-sky-400 font-medium mb-4">{company} <span className="text-slate-600 mx-2">|</span> {date}</p>
+                <ul className="space-y-2">
+                    {points.map((p, idx) => (
+                        <li key={idx} className="text-slate-400 text-sm leading-relaxed">• {p}</li>
+                    ))}
+                </ul>
+            </div>
+        );
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
