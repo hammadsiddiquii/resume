@@ -3,141 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hammad Siddiqui | AI & .NET Architect</title>
+    <title>Hammad Siddiqui | Lead Software Engineer</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: #020617; 
-            color: #f1f5f9; 
-            margin: 0; 
-        }
-        .glass-card {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .gradient-text {
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: #f1f5f9; margin: 0; }
+        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); }
+        .skill-badge { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { motion } = FramerMotion;
+        // We remove Framer Motion for now to ensure the page LOADS perfectly.
+        // Once this is up, we can re-add animations one by one.
 
-        const App = () => {
+        function App() {
             return (
-                <div className="min-h-screen pb-20">
-                    {/* Hero Section */}
-                    <header className="pt-20 pb-16 px-6 text-center">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-4">Hammad Siddiqui</h1>
-                            <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto font-light">
-                                Lead Software Engineer & AI Architect specializing in Enterprise .NET Ecosystems.
-                            </p>
-                            
-                            <div className="flex flex-wrap justify-center gap-4 mt-8">
-                                <span className="px-4 py-2 glass-card rounded-full text-sm">📍 Chicago, IL</span>
-                                <a href="mailto:hammadgr8@gmail.com" className="px-4 py-2 glass-card rounded-full text-sm hover:border-sky-500 transition-colors">📧 Email Me</a>
-                                <a href="http://linkedin.com/in/mhammadsiddiqui" target="_blank" className="px-4 py-2 glass-card rounded-full text-sm hover:border-sky-500 transition-colors">🔗 LinkedIn</a>
-                            </div>
-                        </motion.div>
+                <div className="min-h-screen p-6 md:p-12">
+                    <header className="max-w-4xl mx-auto text-center mb-16">
+                        <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">Hammad Siddiqui</h1>
+                        <p className="text-xl text-slate-400">Lead Software Engineer | AI & Cloud Architect</p>
+                        <div className="mt-6 flex justify-center gap-4 text-sm flex-wrap">
+                            <span className="glass px-4 py-2 rounded-full">📍 Chicago, IL</span>
+                            <span className="glass px-4 py-2 rounded-full">🎓 MCS Graduate</span>
+                            <a href="mailto:hammadgr8@gmail.com" className="glass px-4 py-2 rounded-full hover:border-sky-500 transition-all">✉️ Contact Me</a>
+                        </div>
                     </header>
 
-                    <main className="max-w-5xl mx-auto px-6 grid gap-12">
-                        
-                        {/* AI & Innovation Section */}
-                        <motion.section 
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            className="p-8 rounded-3xl bg-gradient-to-br from-blue-600/10 to-indigo-600/10 border border-blue-500/20"
-                        >
-                            <h2 className="text-2xl font-bold text-sky-400 mb-6 flex items-center gap-3">
-                                🤖 AI Agents & Modern Stack
-                            </h2>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <h3 className="font-bold text-slate-100">Certified AI Agent Architect</h3>
-                                    <p className="text-sm text-slate-400">Expertise in Google Cloud AI Agents and LangChain for autonomous workflows.</p>
+                    <main className="max-w-4xl mx-auto space-y-12">
+                        {/* AI & Certifications Section */}
+                        <section className="glass p-8 rounded-3xl">
+                            <h2 className="text-2xl font-bold text-sky-400 mb-6 tracking-tight">🤖 AI & Cloud Innovation</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="p-4 bg-slate-900/50 rounded-2xl">
+                                    <h3 className="font-bold mb-1">AI Agent Architect</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">Expert in Google Cloud AI Agents, LangChain, and Azure OpenAI integration.</p>
                                 </div>
-                                <div className="space-y-2">
-                                    <h3 className="font-bold text-slate-100">Cloud-Native Specialist</h3>
-                                    <p className="text-sm text-slate-400">Deep experience in Azure (Service Bus, Functions) and AWS (Lambda, S3).</p>
+                                <div className="p-4 bg-slate-900/50 rounded-2xl">
+                                    <h3 className="font-bold mb-1">Azure Certified</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">AZ-204 Developer Associate & AI Engineer Associate certified.</p>
                                 </div>
                             </div>
-                        </motion.section>
+                        </section>
 
-                        {/* Experience Timeline */}
+                        {/* Professional Journey */}
+                        <section className="space-y-8">
+                            <h2 className="text-3xl font-bold">Experience</h2>
+                            <div className="space-y-10 border-l border-slate-800 pl-6 ml-2">
+                                <ExperienceBlock 
+                                    role="Lead .NET Developer" 
+                                    org="Civix (Columbus Technology)" 
+                                    time="2023 - Present"
+                                    text="Leading a team of 8 to modernize .NET 8 microservices for enterprise-level election systems."
+                                />
+                                <ExperienceBlock 
+                                    role="Senior Software Engineer" 
+                                    org="Sky Systems Inc" 
+                                    time="2022 - 2023"
+                                    text="Architected student assignment portals and managed complex SIS data migrations."
+                                />
+                            </div>
+                        </section>
+
+                        {/* Skill Cloud */}
                         <section>
-                            <h2 className="text-3xl font-bold mb-10">Professional Journey</h2>
-                            <div className="space-y-12 border-l-2 border-slate-800 ml-4 pl-8">
-                                <ExperienceItem 
-                                    title="Lead .NET Developer" 
-                                    company="Columbus Technology Solutions (Civix)" 
-                                    date="Oct 2023 - Present"
-                                    desc="Leading modernization of legacy monoliths into .NET 8 Microservices using DDD and CQRS patterns. Mentoring a team of 8 engineers."
-                                />
-                                <ExperienceItem 
-                                    title="Senior Software Engineer" 
-                                    company="Sky Systems Inc" 
-                                    date="Oct 2022 - Oct 2023"
-                                    desc="Architected high-performance school assignment systems using .NET 6 and Blazor for SIS integrations."
-                                />
-                                <ExperienceItem 
-                                    title="Senior Software Engineer" 
-                                    company="Exelon (Via Strategic Staffing)" 
-                                    date="Feb 2022 - Sep 2022"
-                                    desc="Designed secure payment systems and managed critical database migrations for large-scale utility platforms."
-                                />
+                            <h2 className="text-xl font-bold mb-6 text-slate-400 uppercase tracking-widest text-sm">Tech Stack</h2>
+                            <div className="flex flex-wrap gap-3">
+                                {[".NET 8", "C#", "React", "Angular", "Azure", "AWS", "SQL Server", "Microservices", "CQRS", "TDD"].map(skill => (
+                                    <span key={skill} className="px-4 py-2 rounded-lg skill-badge text-sm font-semibold italic">
+                                        {skill}
+                                    </span>
+                                ))}
                             </div>
                         </section>
-
-                        {/* Skills Grid */}
-                        <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <SkillBox title="Backend" items={[".NET 8", "C#", "Web API"]} />
-                            <SkillBox title="Frontend" items={["React", "Angular", "Tailwind"]} />
-                            <SkillBox title="Database" items={["SQL Server", "PostgreSQL", "Redis"]} />
-                            <SkillBox title="DevOps" items={["Azure", "Docker", "CI/CD"]} />
-                        </section>
-
                     </main>
+
+                    <footer className="text-center mt-20 text-slate-600 text-xs">
+                        Built with React & Tailwind CSS | © 2026 Hammad Siddiqui
+                    </footer>
                 </div>
             );
-        };
+        }
 
-        const ExperienceItem = ({ title, company, date, desc }) => (
-            <div className="relative">
-                <div className="absolute -left-[41px] top-1 w-5 h-5 bg-sky-500 rounded-full border-4 border-[#020617] shadow-[0_0_15px_rgba(14,165,233,0.5)]"></div>
-                <h3 className="text-xl font-bold">{title}</h3>
-                <p className="text-sky-400 font-semibold mb-2">{company} <span className="text-slate-600">|</span> {date}</p>
-                <p className="text-slate-400 leading-relaxed max-w-3xl">{desc}</p>
-            </div>
-        );
-
-        const SkillBox = ({ title, items }) => (
-            <div className="p-6 glass-card rounded-2xl">
-                <h4 className="font-bold text-sky-400 mb-3 text-sm uppercase tracking-wider">{title}</h4>
-                <ul className="text-sm text-slate-400 space-y-1">
-                    {items.map(i => <li key={i}>{i}</li>)}
-                </ul>
-            </div>
-        );
+        function ExperienceBlock({ role, org, time, text }) {
+            return (
+                <div className="relative">
+                    <div className="absolute -left-[30px] top-1.5 w-3 h-3 bg-sky-500 rounded-full shadow-[0_0_10px_#0ea5e9]"></div>
+                    <h3 className="text-xl font-bold">{role}</h3>
+                    <p className="text-sky-400 text-sm mb-2">{org} | {time}</p>
+                    <p className="text-slate-400 text-sm leading-relaxed">{text}</p>
+                </div>
+            );
+        }
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
